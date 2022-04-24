@@ -8,7 +8,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<WaveConfigSO> waveConfigs;
     [SerializeField] float timeBetweenWaves = 0f;
     WaveConfigSO currentWave;
-    bool isLooping;
+    LevelManager levelManager;
+    bool isLooping = true;
+
+    void Awake() 
+    {
+        levelManager = FindObjectOfType<LevelManager>();
+    }
 
     void Start()
     {
@@ -17,26 +23,36 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemyWaves()
     {
-        do
+        foreach(WaveConfigSO waveConfig in waveConfigs)
         {
-            foreach(WaveConfigSO waveConfig in waveConfigs)
+            currentWave = waveConfig;
+
+            for(int i = 0; i < currentWave.GetEnemyCount(); i++)
             {
-                currentWave = waveConfig;
-
-                for(int i = 0; i < currentWave.GetEnemyCount(); i++)
-                {
-                    Instantiate(currentWave.GetEnemyPrefab(i), currentWave.GetStartingWaypoint().position, Quaternion.Euler(0,0,180), transform);
-                    yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
-                }
-
-                yield return new WaitForSeconds(timeBetweenWaves);
+                Instantiate(currentWave.GetEnemyPrefab(i), currentWave.GetStartingWaypoint().position, Quaternion.Euler(0,0,180), transform);
+                yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
             }
-        } 
-        while(isLooping);
+
+            yield return new WaitForSeconds(timeBetweenWaves);
+        }
+
+        isLooping = false;
     }
 
     public WaveConfigSO GetCurrentWave()
     {
         return currentWave;
+    }
+
+    public void CheckWinningCondition() 
+    {
+        if (!isLooping)
+        {
+            int remainingEnemies = FindObjectsOfType<Pathfinder>().Length;
+            if(remainingEnemies == 0)
+            {
+                levelManager.LoadGameOver();
+            }
+        }
     }
 }
