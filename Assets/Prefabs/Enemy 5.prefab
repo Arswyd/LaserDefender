@@ -88,16 +88,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  health: 60
-  shield: 40
+  health: 10
+  shield: 200
   shieldObject: {fileID: 4751690287685324183}
-  score: 50
+  score: 500
   hitEffect: {fileID: 5037344389644726980, guid: 5e727f64eb0c56843a67cc3fbb8f83bd, type: 3}
   powerUps:
   - {fileID: 6703168833252364268, guid: 25405dd4ce51d6a4ab777919b86515d2, type: 3}
   - {fileID: 3087222710872848759, guid: 7e9e6f1f22eedba49858fddd018c7508, type: 3}
   - {fileID: 6447234352206188916, guid: 30075676333813645bfc11818622fff7, type: 3}
-  powerUpPercentage: 0.2
+  powerUpPercentage: 0.25
   powerUpSpeed: 2.5
   applyCameraShake: 0
 --- !u!114 &6462648543609391939
@@ -145,7 +145,7 @@ MonoBehaviour:
   powerUpgradeTime: 10
   useAI: 1
   minFiringRate: 0.1
-  firingRateVariance: 0.5
+  firingRateVariance: 0.3
   isFiring: 0
 --- !u!1 &4221582796934320109
 GameObject:
