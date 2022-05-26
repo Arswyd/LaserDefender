@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     WaveConfigSO currentWave;
     LevelManager levelManager;
     bool isLooping = true;
+    bool isReloadingPowerUp = false;
 
     void Awake() 
     {
@@ -19,6 +20,16 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnEnemyWaves());
+    }
+
+    public void SetReloading(bool value)
+    {
+        isReloadingPowerUp = value;
+    }
+
+    public bool GetReloading()
+    {
+        return isReloadingPowerUp;
     }
 
     IEnumerator SpawnEnemyWaves()

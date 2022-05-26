@@ -23,7 +23,6 @@ public class Health : MonoBehaviour
     EnemySpawner enemySpawner;
     int currenHealth;
     int currentShield;
-    bool isReloadingPowerup;
 
     void Awake() 
     {
@@ -125,14 +124,14 @@ public class Health : MonoBehaviour
             scoreKeeper.IncreaseScore(score);
             if(UnityEngine.Random.value <= powerUpPercentage)
             {
-                if(!isReloadingPowerup)
+                if(!enemySpawner.GetReloading())
                 {
                     InstantiatePowerUp();
-                    isReloadingPowerup = true;
+                    enemySpawner.SetReloading(true);
                 }
                 else
                 {
-                    isReloadingPowerup = false;
+                    enemySpawner.SetReloading(false);
                 }
             }
         }
